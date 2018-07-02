@@ -107,7 +107,7 @@ void Classifier::Preprocess(const cv::Mat& img, std::vector<cv::Mat>* input_chan
         sample_resized.convertTo(sample_float, CV_32FC1);
 
     cv::Mat sample_normalized;
-    cv::Mat avgimg(sample_float.rows, sample_float.cols, CV_32FC3, cv::Scalar(93.5940,104.7624,129.1863));
+    cv::Mat avgimg(input_geometry_, CV_32FC3, cv::Scalar(93.5940,104.7624,129.1863));
     cv::subtract(sample_float, avgimg, sample_normalized);
 
     /* This operation will write the separate BGR planes directly to the
@@ -157,11 +157,11 @@ int main(int argc, char** argv) {
     cv::Mat target_float;
     target_image.convertTo(target_float, CV_32FC3);
 
-    cv::Mat target_normalized;
-    cv::Mat avgimg(target_image.rows, target_image.cols, CV_32FC3, cv::Scalar(93.5940,104.7624,129.1863));
-    cv::subtract(target_float, avgimg, target_normalized);
+    //cv::Mat target_normalized;
+    //cv::Mat avgimg(target_image.rows, target_image.cols, CV_32FC3, cv::Scalar(93.5940,104.7624,129.1863));
+    //cv::subtract(target_float, avgimg, target_normalized);
 
-    std::vector<float> target_output = classifier.Predict(target_normalized);
+    std::vector<float> target_output = classifier.Predict(target_float);
 
     // Feature Extraction for target file
 
